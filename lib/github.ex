@@ -1,18 +1,29 @@
 defmodule Github do
-  @moduledoc """
-  Documentation for Github.
-  """
+  use HTTPoison.Base
 
-  @doc """
-  Hello world.
+  @api_url "https://api.github.com"
 
-  ## Examples
+  def process_url(url) do
+    @api_url <> url
+  end
 
-      iex> Github.hello
-      :world
+  def stars(repo_name) do
+    case get_repo_info(repo_name) do
+      {:ok, %{"stargazers_count" => stars_count}} ->
+        {:ok, stars_count}
 
-  """
-  def hello do
-    :world
+      error ->
+        error
+    end
+  end
+
+  defp get_repo_info(repo_name) do
+    case __MODULE__.get!("/repos" <> repo_name) do
+      %HTTPoison.Response{status_code: 200, body: body} ->
+        {:ok, Poison.decode!(body)}
+
+      _ ->
+        {:error, "repo is private"}
+    end
   end
 end
