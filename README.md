@@ -1,21 +1,16 @@
-# Github
+# Github Stars
 
-**TODO: Add description**
+**Accepts public repo name and returns stars count for this repo.**
 
-## Installation
+## Usage
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `github` to your list of dependencies in `mix.exs`:
-
+Example:
 ```elixir
-def deps do
-  [
-    {:github, "~> 0.1.0"}
-  ]
-end
+iex -S mix
+
+iex> Github.stars("/rails/rails")
+=> {:ok, 40838}
+
+iex> Github.stars("private_repo/private")
+=> {:error, "repo is private"}
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/github](https://hexdocs.pm/github).
-
