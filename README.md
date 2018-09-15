@@ -11,6 +11,6 @@ iex -S mix
 iex> Github.stars("/rails/rails")
 => {:ok, 40838}
 
-iex> Github.stars("private_repo/private")
+iex> Github.stars("/private_repo/private")
 => {:error, "repo is private"}
 ```
